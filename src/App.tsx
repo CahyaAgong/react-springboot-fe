@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { Auth, CheckAuth, CreateMember, Dashboard, Member, MemberDetail } from './pages';
+import { Layout } from './components';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+  const location = useLocation();
+
+  const isHomePage = location.pathname === '/' || location.pathname.includes('check-auth');
+
+  return(
+    <>
+      {!isHomePage ? (
+        <Layout>
+          <Routes>
+            <Route path="/dashboard" Component={Dashboard} />
+            <Route path="/members" Component={Member} />
+            <Route path="/members/create" Component={CreateMember} />
+            <Route path="/members/:id/update" Component={CreateMember} />
+            <Route path="/members/:id" Component={MemberDetail} />
+          </Routes>
+        </Layout>
+      ) : (
+        <Routes>
+          <Route path="/" Component={Auth} />
+          <Route path="/check-auth/:token" Component={CheckAuth} />
+        </Routes>
+      )}
+    </>
+  )
 }
 
 export default App;

@@ -1,0 +1,7 @@
+.navbar {
+  @apply hidden md:flex flex-col bg-gray-800 md:w-0;
+}
+
+.navbar.opened {
+  @apply flex absolute top-14 md:static md:top-0 w-full md:w-64;
+}
